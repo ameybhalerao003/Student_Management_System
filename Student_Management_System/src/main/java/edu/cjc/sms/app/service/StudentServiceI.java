@@ -10,5 +10,9 @@ public interface StudentServiceI {
 	public List<Student> getAllStudent();
 	public List<Student> deleteData(int id);
 	public List<Student> searchByBatchNumber(String bn);
+	public List<Student> pagingData(int pageno,int pagesize);
+	public Student getsingleStudentData(int id);
+	public void updateStudentFees(int sid,double amount);
+	public void updateBatchDetails(int sid,String bn);
 	
 }

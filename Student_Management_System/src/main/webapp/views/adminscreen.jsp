@@ -14,151 +14,43 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
 
 <style>
+    /* STYLES */
     :root {
         --primary-color: #4361ee;
         --secondary-color: #3f37c9;
         --bg-color: #f0f2f5;
         --card-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.1);
     }
-
-    body {
-        background-color: var(--bg-color);
-        font-family: 'Poppins', sans-serif;
-        color: #444;
-    }
-
-    /* NAVBAR STYLING */
-    .navbar {
-        background: #ffffff;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-        padding: 15px 0;
-        position: sticky;
-        top: 0;
-        z-index: 1000;
-    }
+    body { background-color: var(--bg-color); font-family: 'Poppins', sans-serif; color: #444; }
+    .navbar { background: #ffffff; box-shadow: 0 4px 20px rgba(0,0,0,0.05); padding: 15px 0; position: sticky; top: 0; z-index: 1000; }
+    .nav-btn { transition: all 0.3s ease; font-weight: 500; padding: 8px 20px; cursor: pointer; text-decoration: none; }
+    .nav-btn:hover { transform: translateY(-2px); }
     
-    .nav-btn {
-        transition: all 0.3s ease;
-        font-weight: 500;
-        padding: 8px 20px;
-        cursor: pointer; /* Added cursor pointer */
-    }
+    section { padding: 50px 0; display: none; animation: fadeIn 0.4s ease-in-out; }
+    .section-active { display: block !important; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     
-    .nav-btn:hover {
-        transform: translateY(-2px);
-    }
-
-    /* SECTION STYLING */
-    section {
-        padding: 50px 0;
-        /* Removed scroll-margin-top as we are now toggling visibility */
-        display: none; /* Hide sections by default, JS will show the right one */
-        animation: fadeIn 0.4s ease-in-out;
-    }
-
-    /* Helper class to show section */
-    .section-active {
-        display: block !important;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* CARDS */
-    .card-ui {
-        border: none;
-        border-radius: 20px;
-        background: #ffffff;
-        box-shadow: var(--card-shadow);
-        overflow: hidden;
-    }
-
-    .card-header-custom {
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-        color: white;
-        padding: 25px;
-        text-align: center;
-        border-radius: 20px 20px 0 0;
-    }
-
-    /* FORM ELEMENTS */
-    .form-floating > .form-control:focus, 
-    .form-floating > .form-select:focus {
-        border-color: var(--primary-color);
-        box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.15);
-    }
-
-    /* RADIO BUTTON AS TAGS */
-    .course-selector .btn-check:checked + .btn-outline-primary {
-        background-color: var(--primary-color);
-        color: white;
-        border-color: var(--primary-color);
-        box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3);
-    }
+    .card-ui { border: none; border-radius: 20px; background: #ffffff; box-shadow: var(--card-shadow); overflow: hidden; }
+    .card-header-custom { background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); color: white; padding: 25px; text-align: center; border-radius: 20px 20px 0 0; }
+    .form-floating > .form-control:focus, .form-floating > .form-select:focus { border-color: var(--primary-color); box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.15); }
     
-    .course-selector label {
-        border-radius: 50px;
-        padding: 8px 20px;
-        margin-right: 10px;
-        border: 1px solid #dee2e6;
-        color: #6c757d;
-        cursor: pointer;
-    }
+    .course-selector .btn-check:checked + .btn-outline-primary { background-color: var(--primary-color); color: white; border-color: var(--primary-color); box-shadow: 0 4px 10px rgba(67, 97, 238, 0.3); }
+    .course-selector label { border-radius: 50px; padding: 8px 20px; margin-right: 10px; border: 1px solid #dee2e6; color: #6c757d; cursor: pointer; }
+    .course-selector label:hover { background-color: #f8f9fa; }
     
-    .course-selector label:hover {
-        background-color: #f8f9fa;
-    }
-
-    /* TABLE STYLING */
-    .custom-table thead {
-        background-color: var(--primary-color);
-        color: white;
-    }
+    .custom-table thead { background-color: var(--primary-color); color: white; }
+    .custom-table th { font-weight: 500; border: none; padding: 15px; }
+    .custom-table td { padding: 15px; vertical-align: middle; font-size: 0.9rem; }
+    .custom-table tbody tr { transition: all 0.2s; }
+    .custom-table tbody tr:hover { background-color: #f8faff; transform: scale(1.005); box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
     
-    .custom-table th {
-        font-weight: 500;
-        border: none;
-        padding: 15px;
-    }
-    
-    .custom-table td {
-        padding: 15px;
-        vertical-align: middle;
-        font-size: 0.9rem;
-    }
-
-    .custom-table tbody tr {
-        transition: all 0.2s;
-    }
-    
-    .custom-table tbody tr:hover {
-        background-color: #f8faff;
-        transform: scale(1.005);
-        box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    }
-
-    /* ACTION BUTTONS */
-    .action-btn {
-        width: 32px;
-        height: 32px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 8px;
-        margin: 0 2px;
-        transition: 0.2s;
-    }
-    
+    .action-btn { width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center; border-radius: 8px; margin: 0 2px; transition: 0.2s; }
     .btn-pay { color: #198754; background: #e8f5e9; border: none; }
     .btn-shift { color: #4361ee; background: #eef2ff; border: none; }
     .btn-remove { color: #dc3545; background: #fef2f2; border: none; }
-    
     .btn-pay:hover { background: #198754; color: white; }
     .btn-shift:hover { background: #4361ee; color: white; }
     .btn-remove:hover { background: #dc3545; color: white; }
-
 </style>
 </head>
 
@@ -172,12 +64,14 @@
         </a>
         
         <div class="d-flex gap-2">
-            <button onclick="showSection('enroll')" class="btn btn-primary nav-btn rounded-pill shadow-sm">
+            <button onclick="showSection('enroll')" class="btn btn-primary nav-btn rounded-pill shadow-sm border-0">
                 <i class="bi bi-person-plus-fill me-1"></i> Enroll
             </button>
-            <button onclick="showSection('view')" class="btn btn-outline-primary nav-btn rounded-pill">
+            
+            <button onclick="window.location.href='getall'" class="btn btn-outline-primary nav-btn rounded-pill">
                 <i class="bi bi-table me-1"></i> View Students
             </button>
+            
             <a href="/" class="btn btn-danger nav-btn rounded-pill">
                 <i class="bi bi-box-arrow-right me-1"></i> Logout
             </a>
@@ -189,7 +83,6 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-6 col-md-8">
-                
                 <div class="card card-ui">
                     <div class="card-header-custom">
                         <h3 class="m-0 fw-bold">Enroll New Student</h3>
@@ -198,17 +91,14 @@
                     
                     <div class="card-body p-5">
                         <form action="enroll_student" method="post">
-                            
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="fName" name="studentfullname" placeholder="Name" required>
                                 <label for="fName">Student Full Name</label>
                             </div>
-
                             <div class="form-floating mb-3">
                                 <input type="email" class="form-control" id="fEmail" name="studentemail" placeholder="Email" required>
                                 <label for="fEmail">Student Email</label>
                             </div>
-
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <div class="form-floating">
@@ -223,12 +113,10 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="form-floating mb-4">
                                 <input type="text" class="form-control" id="fCollege" name="studentcollagename" placeholder="College" required>
                                 <label for="fCollege">College Name</label>
                             </div>
-
                             <div class="mb-4">
                                 <label class="fw-semibold d-block mb-2 text-secondary">Select Course</label>
                                 <div class="course-selector d-flex flex-wrap">
@@ -242,7 +130,6 @@
                                     <label class="btn btn-outline-primary border-0 bg-light" for="course3">🐞 Testing</label>
                                 </div>
                             </div>
-
                             <div class="row mb-4">
                                 <div class="col-6">
                                     <select class="form-select py-3" name="batchnumber" required>
@@ -263,15 +150,12 @@
                                     </select>
                                 </div>
                             </div>
-
                             <div class="d-grid">
                                 <input type="submit" class="btn btn-primary btn-lg py-3 rounded-pill fw-bold shadow" value="Register Student">
                             </div>
-
                         </form>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
@@ -279,7 +163,6 @@
 
 <section id="section-view">
     <div class="container-fluid px-5">
-
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h3 class="fw-bold text-dark">Student Database</h3>
             
@@ -331,24 +214,14 @@
                                     <td>${s.studentemail}</td>
                                     <td>${s.studentage}</td>
                                     <td>${s.studentcollagename}</td>
-                                    <td>
-                                        <span class="badge bg-light text-dark border">
-                                            ${s.studentcourse}
-                                        </span>
-                                    </td>
+                                    <td><span class="badge bg-light text-dark border">${s.studentcourse}</span></td>
                                     <td>${s.batchnumber}</td>
-                                    <td>
-                                        <span class="badge ${s.batchmode == 'Online' ? 'bg-success' : 'bg-warning text-dark'}">
-                                            ${s.batchmode}
-                                        </span>
-                                    </td>
+                                    <td><span class="badge ${s.batchmode == 'Online' ? 'bg-success' : 'bg-warning text-dark'}">${s.batchmode}</span></td>
                                     <td class="text-success fw-bold">$${s.feespaid}</td>
                                     <td class="text-center">
-                                        <button class="action-btn btn-pay" title="Pay Fees"><i class="bi bi-cash-coin"></i></button>
-                                        <button class="action-btn btn-shift" title="Shift Batch"><i class="bi bi-arrow-left-right"></i></button>
-                                        <a href="delete?id=${s.studentid}" class="action-btn btn-remove" title="Remove" onclick="return confirm('Are you sure?')">
-                                            <i class="bi bi-trash"></i>
-                                        </a>
+                                        <a class="action-btn btn-pay" title="Pay Fees" href="fees?id=${s.studentid}"><i class="bi bi-cash-coin"></i></a>
+                                        <a class="action-btn btn-shift" title="Shift Batch" href="batch?id=${s.studentid}"><i class="bi bi-arrow-left-right"></i></a>
+                                        <a href="delete?id=${s.studentid}" class="action-btn btn-remove" title="Remove" onclick="return confirm('Are you sure?')"><i class="bi bi-trash"></i></a>
                                     </td>
                                 </tr>
                             </c:forEach>
@@ -357,6 +230,21 @@
                 </div>
             </div>
         </div>
+
+        <nav aria-label="Page navigation example">
+          <ul class="pagination justify-content-center pt-3">
+            <li class="page-item disabled">
+              <a class="page-link">Previous</a>
+            </li>
+            <li class="page-item"><a class="page-link" href="paging?pageno=0">1</a></li>
+            <li class="page-item"><a class="page-link" href="paging?pageno=1">2</a></li>
+            <li class="page-item"><a class="page-link" href="paging?pageno=2">3</a></li>
+            <li class="page-item">
+              <a class="page-link" href="#">Next</a>
+            </li>
+          </ul>
+        </nav>
+
     </div>
 </section>
 
@@ -364,36 +252,37 @@
 
 <script>
     function showSection(sectionName) {
-        // Get references to both sections
         var enrollSec = document.getElementById('section-enroll');
         var viewSec = document.getElementById('section-view');
 
-        // Logic to toggle
         if (sectionName === 'enroll') {
             enrollSec.classList.add('section-active');
             viewSec.classList.remove('section-active');
+            // Clean URL so it looks nice
+            history.pushState("", document.title, window.location.pathname);
         } else {
             enrollSec.classList.remove('section-active');
             viewSec.classList.add('section-active');
         }
     }
 
-    // INITIALIZATION LOGIC
-    // If the backend sent 'data' (search results), we want to show View automatically.
-    // If not, we show Enroll by default.
     window.onload = function() {
-        var hasData = false;
-        
-        // JSTL check: if 'data' is not empty, this sets hasData to true
+        var sectionToDisplay = 'enroll'; // Default
+
+        // 1. Logic: If the Controller sent data, we MUST show the view.
         <c:if test="${not empty data}">
-            hasData = true;
+            sectionToDisplay = 'view';
         </c:if>
 
-        if (hasData) {
-            showSection('view');
-        } else {
-            showSection('enroll');
+        // 2. Extra safety: Check URL keywords
+        var currentUrl = window.location.href;
+        if (currentUrl.includes('paging') || 
+            currentUrl.includes('search') || 
+            currentUrl.includes('getall')) {
+            sectionToDisplay = 'view';
         }
+
+        showSection(sectionToDisplay);
     };
 </script>
 
